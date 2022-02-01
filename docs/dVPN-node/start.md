@@ -41,14 +41,13 @@
         remote_url = "https://135.24.97.86:8585"
         ```
         
+      Things to consider : 
         
-        Things to consider : 
+      ???+ tip "Tip"
+      If you want to use the alternative method of autorestarting the dvpn node change backend = "file" to "test"
         
-        ???+ tip "Tip"
-        If you want to use the alternative method of autorestarting the dvpn node if it fails change backend = "file" to "test"
-        
-        ???+ warning "Warning"
-        This will store the wallet key unencrypted on the server so it's less secure.
+      ???+ warning "Warning"
+      This will store the wallet key unencrypted on the server so it's less secure.
         
 
 
@@ -115,6 +114,8 @@ sudo chown root:root ${HOME}/.sentinelnode/tls.key
 Use software like [GNU Screen](https://www.gnu.org/software/screen "GNU Screen")
 or [Tmux](https://github.com/tmux/tmux/wiki "Tmux") to run the process in the background
 
+
+
 ``` sh
 docker run --rm \
     --interactive \
@@ -137,8 +138,39 @@ docker run --rm \
 
 ???+ tip "Tip"
 
-    The `<API_PORT>` is the port number set for the field `remote_url` under the section `node` in the application configuration
+   The `<API_PORT>` is the port number set for the field `remote_url` under the section `node` in the application configuration
 
 ???+ tip "Tip"
 
-    The `<WIREGUARD_PORT>` is the value set for the field `listen_port` in the WireGaurd configuration
+   The `<WIREGUARD_PORT>` is the value set for the field `listen_port` in the WireGaurd configuration
+    
+ Starting the node with auto-restart function
+   
+   
+   
+   
+   ``` sh
+  docker run -d \
+    --name sentinel-dvpn-node \
+    --restart unless-stopped \
+    --volume ${HOME}/.sentinelnode:/root/.sentinelnode \
+    --volume /lib/modules:/lib/modules \
+    --cap-drop ALL \
+    --cap-add NET_ADMIN \
+    --cap-add NET_BIND_SERVICE \
+    --cap-add NET_RAW \
+    --cap-add SYS_MODULE \
+    --sysctl net.ipv4.ip_forward=1 \
+    --sysctl net.ipv6.conf.all.disable_ipv6=0 \
+    --sysctl net.ipv6.conf.all.forwarding=1 \
+    --sysctl net.ipv6.conf.default.forwarding=1 \
+    --publish <API_PORT>:<API_PORT>/tcp \
+    --publish <WIREGUARD_PORT:WIREGUARD_PORT>/udp \
+    sentinel-dvpn-node process start
+```
+   
+   
+   ???+ tip "Tip"
+   To show the logs of the detached docker use : docker logs -f -n 100 sentinel-dvpn-node 
+   
+    
