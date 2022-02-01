@@ -13,7 +13,7 @@
 2. Edit the configuration file _${HOME}/.sentinelnode/config.toml_ if required
    
 
-        ``` text
+        ``` sh
         [chain]
         gas_adjustment = 1.05
         gas = 200000
@@ -42,7 +42,7 @@
         ```
         
         
-       text  ???+ tip "Tip"
+        ???+ tip "Tip"
         If you want to use the alternative method of autorestarting the dvpn node if it fails change backend = "file" to "test"
         
         ???+ warning "Warning"
