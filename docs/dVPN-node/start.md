@@ -42,6 +42,8 @@
         ```
         
         
+        Things to consider : 
+        
         ???+ tip "Tip"
         If you want to use the alternative method of autorestarting the dvpn node if it fails change backend = "file" to "test"
         
