@@ -11,7 +11,11 @@
     ```
 
 2. Edit the configuration file _${HOME}/.sentinelnode/config.toml_ if required
-
+    ???+ tip "Tip"
+        If you want to use the alternative method of autorestarting the dvpn node if it fails change backend = "file" to "test"
+        
+        ???+ warning "Warning"
+        This will store the wallet key unencrypted on the server so it's less secure.
     ??? example "Example"
 
         ``` text
@@ -44,11 +48,7 @@
         
         
         
-        ???+ tip "Tip"
-        If you want to use the alternative method of autorestarting the dvpn node if it fails change backend = "file" to "test"
-        
-        ???+ warning "Warning"
-        This will store the wallet key unencrypted on the server so it's less secure.
+ 
 
 3. Initialize the WireGuard configuration
 
